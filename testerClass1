@@ -1,0 +1,45 @@
+package cw;
+
+import java.sql.Date;
+
+public class TesterClass{
+    public static void main(String[] args) {
+        // Creating a Competitor instance
+        Competitor competitor = new Competitor(
+                "2012-09-19",
+                1,
+                101,
+                25,
+                "Beginner",
+                "competitor@email.com",
+                "Level1",
+                "username",
+                "password",
+                new byte[]{1, 2, 3,1,1}, // Individual scores
+                75, // Overall score
+                95, // Max score
+                50 // Lowest score
+        );
+
+        // Printing full details of the competitor
+        System.out.println("Full Details:");
+        System.out.println(competitor.getfulldetails());
+
+        // Printing short details of the competitor
+        System.out.println("\nShort Details:");
+        System.out.println(competitor.getShortDetails());
+
+        // Changing the overall score and printing again
+        competitor.setOverAllScore(80);
+        System.out.println("\nUpdated Full Details:");
+        System.out.println(competitor.getfulldetails());
+
+        // Testing individual scores modification
+        int[] newScores = {80, 70, 65, 75, 85};
+        competitor.setIndividualScores(newScores);
+
+        // Printing updated full details
+        System.out.println("\nUpdated Full Details after modifying individual scores:");
+        System.out.println(competitor.getfulldetails());
+    }
+}
