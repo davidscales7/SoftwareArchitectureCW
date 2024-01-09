@@ -19,7 +19,6 @@ public Staff (int PID, int StaffNumbers,String UserNames ,String Passwords ,Stri
 	UserName = UserNames;
 	Password = Passwords;
 	StaffPosition = Positions;
-	
 }
 public int getPersonsID() {
     return PersonsID;
@@ -61,4 +60,5 @@ public void setPassword(String password) {
 public void setStaffPosition(String staffPosition) {
     StaffPosition = staffPosition;
 }
+
 }
