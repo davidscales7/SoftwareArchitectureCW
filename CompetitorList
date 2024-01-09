@@ -1,1 +1,32 @@
+package cw;
+
+import java.util.*;
+public class CompetitorList{
+
+
+
+    public static void main(String[] args) {
+        // Create a list to store competitors
+        List<Competitor> competitorsList = new ArrayList<>();
+
+        // Create Competitor objects and add them to the list
+        competitorsList.add(new Competitor("20-12-11", "Category", "competitor@example.com", 2, "username", "password", new int[]{5, 4, 3, 2, 1},2,3 12));
+        System.out.println(Manager.getCompetitionNumber());
+        // Add more Competitor objects as needed
+
+        // Accessing Competitor objects from the list
+        for (Competitor competitor : competitorsList) {
+            // Accessing individual attributes or calling methods
+            System.out.println("Competitor Number: " + competitor.getCompetitorNumber());
+            System.out.println("Overall Score: " + competitor.calculateOverallScore());
+            // Add more attributes or methods as needed
+        }
+    }
+
+	public void removeCompetitor(String name) {
+		if Competitor userName = input remove name from list
+		// TODO Auto-generated method stub
+		
+	}
+}
 
