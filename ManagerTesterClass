@@ -1,0 +1,64 @@
+package cw;
+import java.util.ArrayList;
+
+public class ManagerTester {
+    public static void main(String[] args) {
+        // Test case 1: Creating a Manager and generating a report
+        testGenerateFinalReport();
+
+        // Test case 2: Adding a competitor and generating a report
+        testAddCompetitorAndGenerateReport();
+    }
+
+    private static void testGenerateFinalReport() {
+        ArrayList<Competitor> competitorsList = new ArrayList<>();
+        Manager manager = new Manager(competitorsList);
+
+        // Assuming that the competitorsList is populated from CSV in your actual code
+        // For simplicity, adding a dummy competitor for testing
+        competitorsList.add(new Competitor(
+                "2013-01-12",
+                1,
+                101,
+                25,
+                "Beginner",
+                "competitor@email.com",
+                "Level1",
+                "username",
+                "password",
+                new byte[]{1, 2, 3, 1, 1}, // Individual scores
+                75, // Overall score
+                95, // Max score
+                50 // Lowest score
+        ));
+
+        manager.generateFinalReport1("final_report_test1.txt");
+        System.out.println("Test case 1 completed.");
+    }
+
+    private static void testAddCompetitorAndGenerateReport() {
+        ArrayList<Competitor> competitorsList = new ArrayList<>();
+        Manager manager = new Manager(competitorsList);
+
+        // Adding a competitor for testing
+        Competitor newCompetitor = new Competitor(
+                "2010-10-01", // Update with the desired date
+                2,
+                102,
+                30,
+                "Intermediate",
+                "newcompetitor@email.com",
+                "Level2",
+                "newusername",
+                "newpassword",
+                new byte[]{2, 3, 4, 2, 2}, // Individual scores
+                85, // Overall score
+                90, // Max score
+                60 // Lowest score
+        );
+
+        manager.addCompetitor1(newCompetitor);
+        manager.generateFinalReport1("final_report_test2.txt");
+        System.out.println("Test case 2 completed.");
+    }
+}
