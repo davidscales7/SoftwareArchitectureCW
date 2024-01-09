@@ -1,0 +1,214 @@
+package cw;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
+class Manager {
+    private ArrayList<Competitor> competitorsList;
+
+    public Manager(ArrayList<Competitor> competitorsList) {
+        this.competitorsList = competitorsList;
+    }
+
+
+
+    public static void main(String[] args) {
+        // Create a list to store competitors
+        ArrayList<Competitor> competitorsList = new ArrayList<>();
+
+        // Create an instance of the Manager class
+        Manager manager = new Manager(competitorsList);
+
+        // Read competitors from CSV and generate a report
+        manager.readCompetitorsFromCSV("C:\\Users\\david\\eclipse-workspace\\SoftwareJava\\src\\cw\\RunCompetitor4.csv", competitorsList);
+        manager.generateFinalReport1("final_report.txt");
+    }
+
+
+
+	public void addCompetitor1(Competitor competitor) {
+        competitorsList.add(competitor);
+    }
+
+    public void generateFinalReport1(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // Table of Competitors with Full Details
+            writer.write("Competitors Table with Full Details:\n");
+            writer.write("============================================================\n");
+            for (Competitor competitor : competitorsList) {
+                writer.write(competitor.getfulldetails() + "\n");
+                writer.write("------------------------------------------------------------\n");
+            }
+
+            // Details of the Competitor with the Highest Overall Score
+            Competitor competitorWithHighestScore = getCompetitorWithHighestScore1();
+            writer.write("\nDetails of the Competitor with the Highest Overall Score:\n");
+            writer.write(competitorWithHighestScore.getfulldetails() + "\n");
+
+            // Other Summary Statistics
+            writer.write("\nOther Summary Statistics:\n");
+            writer.write("============================================================\n");
+            writer.write("Total Competitors: " + competitorsList.size() + "\n");
+            writer.write("Average Age: " + calculateAverageAge1() + "\n");
+            writer.write("Maximum Overall Score: " + calculateMaximumOverallScore() + "\n");
+            writer.write("Minimum Overall Score: " + calculateMinimumOverallScore() + "\n");
+
+            // Add more summary statistics as needed
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Competitor getCompetitorWithHighestScore1() {
+        return Collections.max(competitorsList, Comparator.comparing(Competitor::getOverAllScore));
+    }
+
+    private  double calculateAverageAge1() {
+        int totalAge = 0;
+        for (Competitor competitor : competitorsList) {
+            totalAge += competitor.getAge();
+        }
+        return (double) totalAge / competitorsList.size();
+    }
+
+
+
+    private void readCompetitorsFromCSV(String filePath, ArrayList<Competitor> competitorsList) {
+        String line;
+        String filePath1 = "C:\\Users\\david\\eclipse-workspace\\SoftwareJava\\src\\cw\\RunCompetitor4.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath1))) {
+        	while ((line = br.readLine()) != null) {
+        	    System.out.println("CSV Line: " + line);  // Add this line for debugging
+        	    String[] values = line.split(",");
+        	    
+                // Print the values extracted from the CSV line
+                for (int i = 0; i < values.length; i++) {
+                    System.out.println("Value " + i + ": " + values[i]);
+                }
+                
+                // Extracting values from the CSV line
+                String dateOfBirth =values[0];
+                int competitionNumber = Integer.parseInt(values[1]);
+                int competitorNumber = Integer.parseInt(values[2]);
+                int age = Integer.parseInt(values[3]);
+                String category = values[4];
+                String email = values[5];
+                String level = values[6];
+                String userName = values[7];
+                String password = values[8];
+                
+                int[] individualScores = {
+                    Integer.parseInt(values[9]),
+                    Integer.parseInt(values[10]),
+                    Integer.parseInt(values[11]),
+                    Integer.parseInt(values[12]),
+                    Integer.parseInt(values[13])
+                };
+
+                int overallScore = Integer.parseInt(values[14]);
+
+                ArrayList<Competitor> competitorsList3;
+				// Creating a new Competitor object using the extracted values
+                Manager manager = new Manager(competitorsList);
+                manager.generateFinalReport1("final_report.txt");
+                
+
+                // Adding the competitor to the list
+                competitorsList.add(new Competitor(
+                		"2013-01-12",
+                        1,
+                        101,
+                        25,
+                        "Beginner",
+                        "competitor@email.com",
+                        "Level1",
+                        "username",
+                        "password",
+                        new byte[]{1, 2, 3,1,1}, // Individual scores
+                        75, // Overall score
+                        95, // Max score
+                        50 // Lowest score
+                ));
+        	}} catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+            
+
+
+
+	public void addCompetitor(Competitor competitor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+public void generateFinalReport(String filePath) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+    	
+        // Table of Competitors with Full Details
+        writer.write("Competitors Table with Full Details:\n");
+        writer.write("============================================================\n");
+        for (Competitor competitor : competitorsList) {
+            writer.write(competitor.getfulldetails() + "\n");
+            writer.write("------------------------------------------------------------\n");
+        }
+
+        // Details of the Competitor with the Highest Overall Score
+        Competitor competitorWithHighestScore = Competitor.getCompetitorWithHighestScore();
+        writer.write("\nDetails of the Competitor with the Highest Overall Score:\n");
+        writer.write(competitorWithHighestScore.getfulldetails() + "\n");
+
+        // Other Summary Statistics
+        writer.write("\nOther Summary Statistics:\n");
+        writer.write("============================================================\n");
+        writer.write("Total Competitors: " + competitorsList.size() + "\n");
+        writer.write("Average Age: " + calculateAverageAge1() + "\n");
+        writer.write("Maximum Overall Score: " + calculateMaximumOverallScore() + "\n");
+        writer.write("Minimum Overall Score: " + calculateMinimumOverallScore() + "\n");
+
+        // Add more summary statistics as needed
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+private Competitor getCompetitorWithHighestScore() {
+    return Collections.max(competitorsList, (c1, c2) -> Integer.compare(((Competitor) c1).getOverAllScore(), ((Competitor) c2).getOverAllScore()));
+}
+
+private double calculateAverageAge() {
+    int totalAge = 0;
+    for (Competitor competitor : competitorsList) {
+        totalAge += competitor.getAge();
+    }
+    return (double) totalAge / competitorsList.size();
+}
+
+private int calculateMaximumOverallScore() {
+    return Collections.max(competitorsList, Comparator.comparing(Competitor::getOverAllScore)).getOverAllScore();
+}
+
+private int calculateMinimumOverallScore() {
+    return Collections.min(competitorsList, Comparator.comparing(Competitor::getOverAllScore)).getOverAllScore();
+}
+
+
+
+
+
+}
+
