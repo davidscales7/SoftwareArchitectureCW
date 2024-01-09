@@ -1,0 +1,105 @@
+package cw;
+import java.util.Date;
+
+
+public class DJSCompetitor {
+    private Date DateOfBirth;
+    private int CompetitionNumber;
+    private int CompetitorNumber;
+    private int Age;
+    private String Category;
+    private String Email;
+    private int Level;
+    private String UserName;
+    private String Password;
+
+    private int[] individualScores;
+
+    public DJSCompetitor(Date DOB, int CompetitionN, int CompetitorN, int age, String cat, String Em, int Lev, String Un, String Pw) {
+        DateOfBirth = DOB;
+        CompetitionNumber = CompetitionN;
+        CompetitorNumber = CompetitorN;
+        Age = age;
+        Category = cat;
+        Email = Em;
+        Level = Lev;
+        UserName = Un;
+        Password = Pw;
+
+        // Initializing the array of individual scores
+        int numberOfScores = 5;
+        individualScores = new int[numberOfScores];
+    }
+
+    public void setIndividualScores(int[] scores) {
+        if (scores.length == individualScores.length) {
+            System.arraycopy(scores, 0, individualScores, 0, scores.length);
+        } else {
+            System.out.println("Invalid number of scores provided");
+        }
+    }
+
+    public String getFullDetails() {
+        StringBuilder fullDetails = new StringBuilder();
+        fullDetails.append("Date Of Birth: ").append(DateOfBirth).append("\n");
+        fullDetails.append("Competition Number: ").append(CompetitionNumber).append("\n");
+        fullDetails.append("Competitor Number: ").append(CompetitorNumber).append("\n");
+        fullDetails.append("Age: ").append(Age).append("\n");
+        fullDetails.append("Category: ").append(Category).append("\n");
+        fullDetails.append("Email: ").append(Email).append("\n");
+        fullDetails.append("Level: ").append(Level).append("\n");
+        fullDetails.append("UserName: ").append(UserName).append("\n");
+        fullDetails.append("Password: ").append(Password).append("\n");
+        fullDetails.append("Individual Scores: ");
+        for (int score : individualScores) {
+            fullDetails.append(score).append(" ");
+        }
+        fullDetails.append("\n");
+        
+        return fullDetails.toString();
+    }
+
+    public String getShortDetails() {
+        return String.format("CN %d (%s%s%s) has overall score %.2f",
+                CompetitorNumber,
+                Character.toUpperCase(UserName.charAt(0)),
+                Character.toUpperCase(UserName.charAt(1)),
+                Character.toUpperCase(UserName.charAt(2)),
+                getOverallScore()
+        );
+    }
+
+    private float getOverallScore() {
+    	float weightedSum = 0;
+    	float totalWeight = 0;
+    	
+    	for (int i = 0; i < individualScores.length; i++) {
+    		float weight = (i+1) * Level;//
+    		weightedSum += individualScores[i]* weight;
+    		totalWeight += weight;
+    				
+    	}
+        // Replace with your logic to calculate overall score
+        return (totalWeight > 0 )? (weightedSum/ totalWeight): (0);
+    }
+
+    
+    public static void main(String[] args) {
+        DJSCompetitor competitor = new DJSCompetitor(
+                new Date(),
+                1,
+                100,
+                25,
+                "CategoryA",
+                "competitor@example.com",
+                2,
+                "username",
+                "password"
+        );
+
+        // Test the methods
+        competitor.setIndividualScores(new int[]{5, 4, 3, 2, 1});
+        System.out.println(competitor.getFullDetails());
+        System.out.println(competitor.getShortDetails());
+    }
+}
