@@ -21,6 +21,7 @@ class Manager {
 
 
 
+
     public static void main(String[] args) {
         // Create a list to store competitors
         ArrayList<Competitor> competitorsList = new ArrayList<>();
@@ -28,10 +29,20 @@ class Manager {
         // Create an instance of the Manager class
         Manager manager = new Manager(competitorsList);
 
-        // Read competitors from CSV and generate a report
+        // Read competitors from CSV
         manager.readCompetitorsFromCSV("C:\\Users\\david\\eclipse-workspace\\SoftwareJava\\src\\cw\\RunCompetitor4.csv", competitorsList);
-        manager.generateFinalReport1("final_report.txt");
+
+        // Check if the competitorsList is not empty before generating the final report
+        if (!competitorsList.isEmpty()) {
+            // Generate a final report
+            manager.generateFinalReport1("final_report.txt");
+        } else {
+            System.out.println("No competitors found. Unable to generate the final report.");
+        }
     }
+
+        
+        
 
 
 
@@ -88,10 +99,10 @@ class Manager {
         String filePath1 = "C:\\Users\\david\\eclipse-workspace\\SoftwareJava\\src\\cw\\RunCompetitor4.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath1))) {
-        	while ((line = br.readLine()) != null) {
-        	    System.out.println("CSV Line: " + line);  // Add this line for debugging
-        	    String[] values = line.split(",");
-        	    
+            while ((line = br.readLine()) != null) {
+                System.out.println("CSV Line: " + line);
+
+                String[] values = line.split(",");
                 // Print the values extracted from the CSV line
                 for (int i = 0; i < values.length; i++) {
                     System.out.println("Value " + i + ": " + values[i]);
@@ -154,6 +165,10 @@ class Manager {
 	}
 
 
+	
+	
+	
+	
 
 public void generateFinalReport(String filePath) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -208,7 +223,7 @@ private int calculateMinimumOverallScore() {
 
 
 
+        }
 
 
-}
 
